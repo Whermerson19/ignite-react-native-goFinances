@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   Container,
   Header,
@@ -8,6 +9,7 @@ import {
   User,
   UserGreeting,
   Username,
+  Icon
 } from "./styles";
 
 export function Dashboard() {
@@ -16,12 +18,17 @@ export function Dashboard() {
       <Header>
         <UserWrapper>
           <UserInfo>
-            <Photo source={{ uri: "https://avatars.githubusercontent.com/u/68500665?v=4" }} />
+            <Photo
+              source={{
+                uri: "https://avatars.githubusercontent.com/u/68500665?v=4",
+              }}
+            />
             <User>
               <UserGreeting>Olá, </UserGreeting>
               <Username>Whermerson</Username>
             </User>
           </UserInfo>
+          <Icon name="power" />
         </UserWrapper>
       </Header>
     </Container>
