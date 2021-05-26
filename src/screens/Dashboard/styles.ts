@@ -4,6 +4,9 @@ import { Feather } from "@expo/vector-icons";
 
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
+import { FlatList } from "react-native";
+
+import { IDataListProps } from ".";
 
 export const Container = styled.View`
   flex: 1;
@@ -76,3 +79,22 @@ export const WalletCards = styled.ScrollView.attrs({
   position: absolute;
   margin-top: ${RFPercentage(20)}px;
 `;
+
+export const Transactions = styled.View`
+  flex: 1;
+
+  padding: 0 ${RFValue(24)}px;
+
+  margin-top: ${RFPercentage(13)}px;
+`;
+
+export const Title = styled.Text`
+  font-size: ${RFValue(18)}px;
+  font-family: ${(props) => props.theme.fonts.regular};
+
+  margin-bottom: 16px;
+`;
+
+export const TransactionsList = styled(
+  FlatList as new () => FlatList<IDataListProps>
+).attrs({})``;
