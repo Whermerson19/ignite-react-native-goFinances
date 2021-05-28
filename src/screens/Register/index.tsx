@@ -61,13 +61,15 @@ export function Register() {
   }, []);
 
   const handleSubmitRegisterForm = useCallback((form: FormData) => {
-    if (!transactionType) return Alert.alert("Selecione uma categoria");
+    if (!transactionType) return Alert.alert("Selecione o tipo de transação");
 
     if (category.key === "category")
       return Alert.alert("Selecione a categoria");
 
-    console.log(form);
-  }, []);
+    console.log(category.key)
+
+    // console.log(form);
+  }, [category.key, transactionType]);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
