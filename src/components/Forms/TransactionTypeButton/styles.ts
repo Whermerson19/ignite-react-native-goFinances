@@ -34,6 +34,8 @@ export const Container = styled(TouchableOpacity)<ContainerProps>`
     background-color: ${props => props.theme.colors.success_light};
     border: 0;
   `}
+
+  margin-top: ${RFValue(8)}px;
 `;
 
 export const Icon = styled(Feather)<IconProps>`

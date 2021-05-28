@@ -13,6 +13,7 @@ import theme from "./src/global/styles/theme";
 import { Dashboard } from "./src/screens/Dashboard";
 import { StatusBar } from "react-native";
 import { Register } from "./src/screens/Register";
+import { CategoryModal } from "./src/screens/CategoryModal";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
