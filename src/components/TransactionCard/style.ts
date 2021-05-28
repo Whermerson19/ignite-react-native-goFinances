@@ -12,7 +12,7 @@ export const Container = styled.View`
 
   padding: 17px 24px;
 
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 `;
 
 export const Title = styled.Text`

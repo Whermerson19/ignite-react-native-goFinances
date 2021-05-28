@@ -48,6 +48,17 @@ export function Dashboard() {
         icon: "coffee"
       },
       date: "19/01/2021"
+    },
+    {
+      id: '3',
+      type: 'negative',
+      title: "Super Mercado",
+      amount: "R$ 100,00",
+      category: {
+        name: "Compras",
+        icon: "coffee"
+      },
+      date: "19/01/2021"
     }
   ];
 
