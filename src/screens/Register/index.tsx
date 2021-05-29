@@ -6,7 +6,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { CategorySelect } from "../../components/Forms/CategorySelect";
 import { Button } from "../../components/Forms/Button";
-import { Input } from "../../components/Forms/Input";
 import { TransactionTypeButton } from "../../components/Forms/TransactionTypeButton";
 
 import { CategoryModal } from "../CategoryModal";
@@ -44,7 +43,11 @@ export function Register() {
     name: "Categoria",
   });
 
-  const { control, handleSubmit, formState: { errors } } = useForm({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: yupResolver(schema),
   });
 
@@ -60,16 +63,20 @@ export function Register() {
     setCategoryModalOpen(true);
   }, []);
 
-  const handleSubmitRegisterForm = useCallback((form: FormData) => {
-    if (!transactionType) return Alert.alert("Selecione o tipo de transação");
+  const handleSubmitRegisterForm = useCallback(
+    ({ name, amount }: FormData) => {
+      if (!transactionType) return Alert.alert("Selecione o tipo de transação");
 
-    if (category.key === "category")
-      return Alert.alert("Selecione a categoria");
+      if (category.key === "category")
+        return Alert.alert("Selecione a categoria");
 
-    console.log(category.key)
-
-    // console.log(form);
-  }, [category.key, transactionType]);
+      console.log({
+        name,
+        amount,
+      });
+    },
+    [category.key, transactionType]
+  );
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -103,7 +110,6 @@ export function Register() {
                 icon="arrow-up-circle"
                 onPress={() => handleTransactionType("up")}
                 isActive={transactionType === "up"}
-                activeOpacity={1}
               />
               <TransactionTypeButton
                 title="Saída"
@@ -111,7 +117,6 @@ export function Register() {
                 icon="arrow-down-circle"
                 onPress={() => handleTransactionType("down")}
                 isActive={transactionType === "down"}
-                activeOpacity={1}
               />
             </TransactionsFields>
 
@@ -122,9 +127,8 @@ export function Register() {
           </Fields>
 
           <Button
-            onPress={handleSubmit(handleSubmitRegisterForm)}
             title="Enviar"
-            activeOpacity={0.7}
+            onPress={handleSubmit(handleSubmitRegisterForm)}
           />
         </Form>
 

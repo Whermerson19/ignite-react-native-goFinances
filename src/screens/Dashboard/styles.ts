@@ -1,4 +1,6 @@
 import styled from "styled-components/native";
+import { BorderlessButton } from 'react-native-gesture-handler'
+
 import { Platform } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
@@ -41,6 +43,7 @@ export const UserInfo = styled.View`
   align-items: center;
 `;
 
+
 export const Photo = styled.Image`
   width: ${RFValue(48)}px;
   height: ${RFValue(48)}px;
@@ -63,6 +66,8 @@ export const Username = styled.Text`
   font-size: ${RFValue(18)}px;
   font-family: ${(props) => props.theme.fonts.bold};
 `;
+
+export const LogoutButton = styled(BorderlessButton)``;
 
 export const Icon = styled(Feather)`
   color: ${(props) => props.theme.colors.secondary};

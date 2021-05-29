@@ -2,13 +2,14 @@ import React from "react";
 import { TransactionCard } from "../../components/TransactionCard";
 import { WalletCard } from "../../components/WalletCard";
 
-import { ITransactionsCardProps } from '../../components/TransactionCard'
+import { ITransactionsCardProps } from "../../components/TransactionCard";
 
 import {
   Container,
   Header,
   UserWrapper,
   UserInfo,
+  LogoutButton,
   Photo,
   User,
   UserGreeting,
@@ -25,41 +26,40 @@ export interface IDataListProps extends ITransactionsCardProps {
 }
 
 export function Dashboard() {
-
   const data: IDataListProps[] = [
     {
-      id: '1',
-      type: 'positive',
+      id: "1",
+      type: "positive",
       title: "Desenvolvimento de site",
       amount: "R$ 1000,00",
       category: {
         name: "Vendas",
-        icon: "dollar-sign"
+        icon: "dollar-sign",
       },
-      date: "19/01/2021"
+      date: "19/01/2021",
     },
     {
-      id: '2',
-      type: 'negative',
+      id: "2",
+      type: "negative",
       title: "Super Mercado",
       amount: "R$ 100,00",
       category: {
         name: "Compras",
-        icon: "coffee"
+        icon: "coffee",
       },
-      date: "19/01/2021"
+      date: "19/01/2021",
     },
     {
-      id: '3',
-      type: 'negative',
+      id: "3",
+      type: "negative",
       title: "Super Mercado",
       amount: "R$ 100,00",
       category: {
         name: "Compras",
-        icon: "coffee"
+        icon: "coffee",
       },
-      date: "19/01/2021"
-    }
+      date: "19/01/2021",
+    },
   ];
 
   return (
@@ -77,7 +77,10 @@ export function Dashboard() {
               <Username>Whermerson</Username>
             </User>
           </UserInfo>
-          <Icon name="power" />
+
+          <LogoutButton onPress={() => console.log('click')} >
+            <Icon name="power" />
+          </LogoutButton>
         </UserWrapper>
       </Header>
 
@@ -105,14 +108,12 @@ export function Dashboard() {
       <Transactions>
         <Title>Listagem</Title>
 
-        <TransactionsList 
+        <TransactionsList
           data={data}
           keyExtractor={(item) => item.id}
-          renderItem={({item}) => <TransactionCard data={item} />}
+          renderItem={({ item }) => <TransactionCard data={item} />}
           showsVerticalScrollIndicator={false}
         />
-
-        
       </Transactions>
     </Container>
   );
