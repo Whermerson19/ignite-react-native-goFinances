@@ -5,7 +5,7 @@ import { Container, Icon, Title } from './styles'
 
 interface Props extends RectButtonProps {
   title: string;
-  type: 'up' | 'down';
+  type: 'positive' | 'negative';
   icon: string;
   isActive: boolean;
   onPress: () => void

@@ -10,7 +10,7 @@ interface IconProps {
 
 interface ContainerProps {
   isActive: boolean;
-  type: 'up' | 'down';
+  type: 'positive' | 'negative';
 }
 
 export const Container = styled(RectButton)<ContainerProps>`
@@ -25,12 +25,12 @@ export const Container = styled(RectButton)<ContainerProps>`
   padding: ${RFValue(16)}px ${RFValue(35)}px;
   justify-content: center;
 
-  ${props => props.isActive && props.type === 'down' && css`
+  ${props => props.isActive && props.type === 'negative' && css`
     background-color: ${props => props.theme.colors.attention_ligth};
     border: 0;
   `}
 
-  ${props => props.isActive && props.type === 'up' && css`
+  ${props => props.isActive && props.type === 'positive' && css`
     background-color: ${props => props.theme.colors.success_light};
     border: 0;
   `}
@@ -43,7 +43,7 @@ export const Icon = styled(Feather)<IconProps>`
   margin-right: 12px;
 
   color: ${(props) =>
-    props.type === "up"
+    props.type === "positive"
       ? props.theme.colors.success
       : props.theme.colors.attention};
 `;

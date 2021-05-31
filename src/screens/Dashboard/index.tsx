@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { TransactionCard } from "../../components/TransactionCard";
 import { WalletCard } from "../../components/WalletCard";
-
 import { ITransactionsCardProps } from "../../components/TransactionCard";
 
 import {
@@ -20,47 +21,99 @@ import {
   Title,
   TransactionsList,
 } from "./styles";
+import { useFocusEffect } from "@react-navigation/core";
 
 export interface IDataListProps extends ITransactionsCardProps {
   id: string;
 }
 
+interface IWalletCardsProps {
+  amount: string;
+}
+
+interface IWalletCardsData {
+  entries: IWalletCardsProps;
+  expensives: IWalletCardsProps;
+  total: IWalletCardsProps;
+}
+
 export function Dashboard() {
-  const data: IDataListProps[] = [
-    {
-      id: "1",
-      type: "positive",
-      title: "Desenvolvimento de site",
-      amount: "R$ 1000,00",
-      category: {
-        name: "Vendas",
-        icon: "dollar-sign",
+  const [transactions, setTransactions] = useState<IDataListProps[]>([]);
+  const [walletCardsData, setWalletCardsData] = useState<IWalletCardsData>(
+    {} as IWalletCardsData
+  );
+
+  const loadedTransactions = useCallback(async () => {
+    const dataKey = "@gofinances:transactions";
+
+    const response = await AsyncStorage.getItem(dataKey);
+
+    const transactions = response ? JSON.parse(response) : [];
+
+    let entries = 0;
+    let expensives = 0;
+
+    const formattedTransactions: IDataListProps[] = transactions.map(
+      (item: IDataListProps) => {
+        if (item.type === "positive") entries += Number(item.amount);
+        else expensives += Number(item.amount);
+
+        const amount = Number(item.amount).toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        });
+
+        const date = Intl.DateTimeFormat("pt-BR", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+        }).format(new Date(item.date));
+
+        return {
+          id: item.id,
+          name: item.name,
+          amount,
+          date,
+          type: item.type,
+          category: item.category,
+        };
+      }
+    );
+
+    const total = entries - expensives
+
+    setTransactions(formattedTransactions);
+    setWalletCardsData({
+      entries: {
+        amount: entries.toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        }),
       },
-      date: "19/01/2021",
-    },
-    {
-      id: "2",
-      type: "negative",
-      title: "Super Mercado",
-      amount: "R$ 100,00",
-      category: {
-        name: "Compras",
-        icon: "coffee",
+      expensives: {
+        amount: expensives.toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        }),
       },
-      date: "19/01/2021",
-    },
-    {
-      id: "3",
-      type: "negative",
-      title: "Super Mercado",
-      amount: "R$ 100,00",
-      category: {
-        name: "Compras",
-        icon: "coffee",
+      total: {
+        amount: total.toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        }),
       },
-      date: "19/01/2021",
-    },
-  ];
+    });
+  }, []);
+
+  useEffect(() => {
+    loadedTransactions();
+  }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      loadedTransactions();
+    }, [])
+  );
 
   return (
     <Container>
@@ -78,7 +131,7 @@ export function Dashboard() {
             </User>
           </UserInfo>
 
-          <LogoutButton onPress={() => console.log('click')} >
+          <LogoutButton onPress={() => console.log("click")}>
             <Icon name="power" />
           </LogoutButton>
         </UserWrapper>
@@ -88,19 +141,19 @@ export function Dashboard() {
         <WalletCard
           type="up"
           title="Entradas"
-          amount="R$ 1000,00"
+          amount={walletCardsData.entries.amount}
           lastTransaction="05 de Junho"
         />
         <WalletCard
           type="down"
           title="Saídas"
-          amount="R$ 100,00"
+          amount={walletCardsData.expensives.amount}
           lastTransaction="05 de Junho"
         />
         <WalletCard
           type="total"
           title="Total"
-          amount="R$ 900,00"
+          amount={walletCardsData.total.amount}
           lastTransaction="05 de Junho"
         />
       </WalletCards>
@@ -109,7 +162,7 @@ export function Dashboard() {
         <Title>Listagem</Title>
 
         <TransactionsList
-          data={data}
+          data={transactions}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <TransactionCard data={item} />}
           showsVerticalScrollIndicator={false}

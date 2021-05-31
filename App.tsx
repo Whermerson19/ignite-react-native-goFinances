@@ -1,10 +1,12 @@
 import "react-native-gesture-handler";
+import "intl";
+import "intl/locale-data/jsonp/pt-BR";
 
 import React from "react";
 import { ThemeProvider } from "styled-components";
 import AppLoading from "expo-app-loading";
 
-import { NavigationContainer } from "@react-navigation/native"
+import { NavigationContainer } from "@react-navigation/native";
 
 import {
   useFonts,
