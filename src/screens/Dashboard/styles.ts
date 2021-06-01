@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { BorderlessButton } from 'react-native-gesture-handler'
+import { BorderlessButton } from "react-native-gesture-handler";
 
 import { Platform } from "react-native";
 import { Feather } from "@expo/vector-icons";
@@ -9,6 +9,13 @@ import { getStatusBarHeight } from "react-native-iphone-x-helper";
 import { FlatList } from "react-native";
 
 import { IDataListProps } from ".";
+
+export const LoadContainer = styled.View`
+  flex: 1;
+
+  align-items: center;
+  justify-content: center;
+`;
 
 export const Container = styled.View`
   flex: 1;
@@ -42,7 +49,6 @@ export const UserInfo = styled.View`
   flex-direction: row;
   align-items: center;
 `;
-
 
 export const Photo = styled.Image`
   width: ${RFValue(48)}px;
