@@ -57,7 +57,7 @@ export function Dashboard() {
         Math.max.apply(
           Math,
           collection
-            .filter((transaction) => transaction.type === "positive")
+            .filter((transaction) => transaction.type === type)
             .map((transaction) => new Date(transaction.date).getTime())
         )
       );
@@ -65,6 +65,7 @@ export function Dashboard() {
       return Intl.DateTimeFormat("pt-BR", {
         day: "2-digit",
         month: "long",
+        year: 'numeric'
       }).format(lastTransactionsEntry);
     },
     []
@@ -93,7 +94,7 @@ export function Dashboard() {
         const date = Intl.DateTimeFormat("pt-BR", {
           day: "2-digit",
           month: "2-digit",
-          year: '2-digit'
+          year: 'numeric'
         }).format(new Date(item.date));
 
         return {
