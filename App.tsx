@@ -17,9 +17,9 @@ import {
 
 import theme from "./src/global/styles/theme";
 import { StatusBar } from "react-native";
-import { Register } from "./src/screens/Register";
 import { AppRoutes } from "./src/routes/app.routes";
 import { SignIn } from "./src/screens/SignIn";
+import { AuthProvider } from "./src/hooks/AuthContext";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -40,7 +40,9 @@ export default function App() {
       />
       <NavigationContainer>
         {/* <AppRoutes /> */}
-        <SignIn />
+        <AuthProvider>
+          <SignIn />
+        </AuthProvider>
       </NavigationContainer>
     </ThemeProvider>
   );
