@@ -20,6 +20,8 @@ import { StatusBar } from "react-native";
 import { AppRoutes } from "./src/routes/app.routes";
 import { SignIn } from "./src/screens/SignIn";
 import { AuthProvider } from "./src/hooks/AuthContext";
+import { ScrollView } from "react-native-gesture-handler";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
