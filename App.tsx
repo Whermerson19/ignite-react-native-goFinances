@@ -1,12 +1,12 @@
-import "react-native-gesture-handler";
 import "intl";
 import "intl/locale-data/jsonp/pt-BR";
+import "react-native-gesture-handler";
 
 import React from "react";
 import { ThemeProvider } from "styled-components";
 import AppLoading from "expo-app-loading";
 
-import { NavigationContainer } from "@react-navigation/native";
+import { Routes } from "./src/routes";
 
 import {
   useFonts,
@@ -17,11 +17,7 @@ import {
 
 import theme from "./src/global/styles/theme";
 import { StatusBar } from "react-native";
-import { AppRoutes } from "./src/routes/app.routes";
-import { SignIn } from "./src/screens/SignIn";
 import { AuthProvider } from "./src/hooks/AuthContext";
-import { ScrollView } from "react-native-gesture-handler";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -40,12 +36,9 @@ export default function App() {
         barStyle="light-content"
         backgroundColor={theme.colors.primary}
       />
-      <NavigationContainer>
-        {/* <AppRoutes /> */}
-        <AuthProvider>
-          <SignIn />
-        </AuthProvider>
-      </NavigationContainer>
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
     </ThemeProvider>
   );
 }
